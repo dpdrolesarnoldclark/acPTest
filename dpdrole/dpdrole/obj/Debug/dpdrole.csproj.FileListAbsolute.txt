@@ -36,7 +36,6 @@ C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\Microsoft.AI
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\Microsoft.AI.Web.xml
-C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.csprojResolveAssemblyReference.cache
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.csproj.CoreCompileInputs.cache
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.dll
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.pdb

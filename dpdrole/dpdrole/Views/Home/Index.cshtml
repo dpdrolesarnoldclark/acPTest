@@ -1,31 +1,154 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model dpdrole.Models.Models
+@{
+    ViewBag.Title = "Loan Calculator";
 }
 
+<style>
+    #myModal .modal-dialog {
+        width: 70%;
+    }
+    /** Forces input to fill width of control column **/
+    .FillWide {
+        max-width: 800px;
+    }
+
+    .TextAlignLeft {
+        text-align: left;
+    }
+
+    p {
+        margin: 0 0 0px !important;
+    }
+
+    .modal-body {
+        margin-top: 5px;
+    }
+
+    .modal-header {
+        padding: 15px 15px 48px 15px;
+    }
+
+    #UnScheduledEvents .fc-event {
+        background-color: #fff !important;
+    }
+
+    #UnScheduledEvents .fc-event, .ui-widget .fc-event {
+        color: black !important;
+        font-size: medium !important;
+        border: inherit !important;
+    }
+
+    #UnScheduledEvents table {
+        width: 100% !important;
+    }
+
+    #external-events .fc-event {
+        background-color: #fff !important;
+    }
+
+    #external-events .fc-event, .ui-widget .fc-event {
+        color: black !important;
+        font-size: medium !important;
+        border-color: black !important;
+        padding: 11px 5px 8px 5px !important;
+        border-radius: 0px !important;
+    }
+
+
+
+    .table tr th {
+        max-width: 100px;
+        width: 123px !important;
+    }
+
+    .table tr td {
+        width: 123px !important;
+    }
+
+    .table thead tr {
+        display: flex;
+    }
+
+        .table thead tr th:nth-child(1) {
+            width: 38.5% !important;
+        }
+
+        .table thead tr th:nth-child(2) {
+        }
+
+        .table thead tr th:nth-child(3) {
+        }
+
+    .table tbody tr {
+        display: flex;
+    }
+
+        .table tbody tr td:nth-child(1) {
+            word-wrap: break-word;
+        }
+
+        .table tbody tr td:nth-child(2) {
+        }
+
+        .table tbody tr td:nth-child(3) {
+        }
+</style>
+
 <div class="jumbotron">
-    <h1 style="font-family: Impact, fantasy"><I>Arnold Clark</I></h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1 stLoan Calculatoryle="font-family: Impact, fantasy"><I>Arnold Clark</I></h1>
+    <p class="lead">Loan calculator and payment schedule generator.</p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+    <div class="row">
+        <h2>Loan Calculator</h2>
+        @using (Html.BeginForm("LoanCalculator", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <fieldset>
+                <table>
+                    <tr>
+                        <td style="width:300px">@Html.LabelFor(m => m.Price)</td>
+                        <td>@Html.TextBoxFor(m => m.Price)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Deposit)</td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Deposit)
+                            @Html.ValidationMessageFor(m => m.Deposit)
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.DeliveryDate)</td>
+                        <td>@Html.TextBoxFor(m => m.DeliveryDate)</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">@Html.LabelFor(m => m.Years)</td>
+                        <td align="left">
+                            <ol style="list-style-type:none">
+                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "1") @Html.Label("1")</li>
+                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "2") @Html.Label("2")</li>
+                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "3") @Html.Label("3")</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Arrangement)</td>
+                        <td>@Html.TextBoxFor(m => m.Arrangement)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Completion)</td>
+                        <td>@Html.TextBoxFor(m => m.Completion)</td>
+                    </tr>
+
+                    <tr><td colspan="2" align="right"><input type="submit" class="btn btn-default" value="Calculate" /></td></tr>
+                </table>
+            </fieldset>
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    
+    <div  class="row" id="scheduleDetailSection">
+        <h2>Payment Schedule </h2>
+        <div id="scheduleDetailTable"> </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+

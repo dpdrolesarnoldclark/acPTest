@@ -39,3 +39,10 @@ C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\Microsoft.AI
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.csproj.CoreCompileInputs.cache
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.dll
 C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.pdb
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\obj\Debug\dpdrole.csprojResolveAssemblyReference.cache
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Net.Http.Formatting.dll
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Web.Http.dll
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Web.Http.WebHost.dll
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Net.Http.Formatting.xml
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Web.Http.xml
+C:\Users\vacaf\Source\Repos\ArnoldClark\acPTest\dpdrole\dpdrole\bin\System.Web.Http.WebHost.xml

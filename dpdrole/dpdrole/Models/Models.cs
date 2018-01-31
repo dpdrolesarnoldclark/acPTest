@@ -28,6 +28,7 @@ namespace dpdrole.Models
 
         [Required]
         [Display(Name = "Delivery date")]
+
         public DateTime? DeliveryDate { get; set; }
 
         [Required]

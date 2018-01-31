@@ -108,18 +108,18 @@
                 <table>
                     <tr>
                         <td style="width:300px">@Html.LabelFor(m => m.Price)</td>
-                        <td>@Html.TextBoxFor(m => m.Price)</td>
+                        <td>£@Html.TextBoxFor(m => m.Price)</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(m => m.Deposit)</td>
                         <td>
-                            @Html.TextBoxFor(m => m.Deposit)
+                            £@Html.TextBoxFor(m => m.Deposit)
                             @Html.ValidationMessageFor(m => m.Deposit)
                     </td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(m => m.DeliveryDate)</td>
-                        <td>@Html.TextBoxFor(m => m.DeliveryDate)</td>
+                        <td>&nbsp;@Html.TextBoxFor(m => m.DeliveryDate)</td>
                     </tr>
                     <tr>
                         <td valign="top">@Html.LabelFor(m => m.Years)</td>
@@ -133,11 +133,11 @@
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(m => m.Arrangement)</td>
-                        <td>@Html.TextBoxFor(m => m.Arrangement)</td>
+                        <td>£@Html.TextBoxFor(m => m.Arrangement, new { value = "88" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(m => m.Completion)</td>
-                        <td>@Html.TextBoxFor(m => m.Completion)</td>
+                        <td>£@Html.TextBoxFor(m => m.Completion, new { value = "20" })</td>
                     </tr>
 
                     <tr><td colspan="2" align="right"><input type="submit" class="btn btn-default" value="Calculate" /></td></tr>

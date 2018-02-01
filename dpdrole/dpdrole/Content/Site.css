@@ -22,3 +22,96 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*<style >*/ 
+#myModal .modal-dialog {
+    width: 70%;
+}
+/** Forces input to fill width of control column **/
+.FillWide {
+    max-width: 800px;
+}
+
+.TextAlignLeft {
+    text-align: left;
+}
+
+p {
+    margin: 0 0 0px !important;
+}
+
+.modal-body {
+    margin-top: 5px;
+}
+
+.modal-header {
+    padding: 15px 15px 48px 15px;
+}
+
+#UnScheduledEvents .fc-event {
+    background-color: #fff !important;
+}
+
+#UnScheduledEvents .fc-event, .ui-widget .fc-event {
+    color: black !important;
+    font-size: medium !important;
+    border: inherit !important;
+}
+
+#UnScheduledEvents table {
+    width: 100% !important;
+}
+
+#external-events .fc-event {
+    background-color: #fff !important;
+}
+
+#external-events .fc-event, .ui-widget .fc-event {
+    color: black !important;
+    font-size: medium !important;
+    border-color: black !important;
+    padding: 11px 5px 8px 5px !important;
+    border-radius: 0px !important;
+}
+
+
+
+.table tr th {
+    max-width: 100px;
+    width: 123px !important;
+}
+
+.table tr td {
+    width: 123px !important;
+}
+
+.table thead tr {
+    display: flex;
+}
+
+    .table thead tr th:nth-child(1) {
+        width: 38.5% !important;
+    }
+
+    .table thead tr th:nth-child(2) {
+    }
+
+    .table thead tr th:nth-child(3) {
+    }
+
+.table tbody tr {
+    display: flex;
+}
+
+    .table tbody tr td:nth-child(1) {
+        word-wrap: break-word;
+    }
+
+    .table tbody tr td:nth-child(2) {
+    }
+
+    .table tbody tr td:nth-child(3) {
+    }
+
+/*</style >*/
+

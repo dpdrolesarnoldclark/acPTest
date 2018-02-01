@@ -42,30 +42,151 @@
             $("#scheduleDetailSection").fadeOut(0);
         });
 
-        //var selectedCourseName;
+        $('#btnCalculate').click(function () {
+            var price = $('#Price').val(),
+                deposit = $('#Deposit').val(),
+                date = $('#DeliveryDate').val(),
+                years = 0,
+                arrangement = $('#Arrangement').val(),
+                completion = $('#Completion').val();
 
-//        $("#btnCalculate").click(function () {
-//                getScheduleTable();
-//                $("#scheduleDetailSection").fadeIn();
-//        });
+            for (e of document.getElementsByName('Years')) {
+                if (e.checked) {
+                    // do whatever you want with the checked radioButton
+                    years = e.value;
 
-        //Create table to display schedule detail
-//        function getScheduleTable() {
-//            $("#scheduleDetailTable").empty();
-//            $("#scheduleDetailTable").append("<table id='tblschedule'  class='tableStyle'><tr><th class='tableHeader' style='width:60px;'>Employee ID</th><th class='tableHeader'>Faculty Name</th></tr></table>");
+                    // only one radio can be logically checked, don't check the rest
+                    break;
+                }
+            }
 
-            //Get all faculties with the help of model (ViewData["Faculties"]), and convert data into json format.
-//            var allFaculties = @Html.Raw(Json.Encode(ViewData["Faculties"]));
+            // data validation
+            if (price <= 0)
+                $('#priceMsg').text('Price amount must be greater 0');
+            if (deposit <= 0)
+                $('#depositMsg').text('Deposit amount must be greater 0');
+            if (parseInt(price * 0.15) > deposit)
+                $('#depositMsg').text('Deposit amount should be minimum 15% of price');
+            if (date == '')
+                $('#deliveryDateMsg').text('Date field must heve a value');
+            if (years <= 0)
+                $('#yearsMsg').text('Year field must have a value');
+            if (arrangement <= 0)
+                $('#arrangementMsg').text('Arrangement amount must be greater 0');
+            if (completion <= 0)
+                $('#completionMsg').text('Completion amount must be greater 0');
 
-//            for (var i = 0; i < allFaculties.length; i++) {
-//                var allotedCourses = allFaculties[i].AllotedCourses;
-//                for (var j = 0; j < allotedCourses.length; j++) {
-//                    if(allotedCourses[j].CourseName === selectedCourseName)
-//                        $("#tblfaculty").append("<tr><td class='tableCell'>"  + allFaculties[i].FacultyId
-//                            + "</td><td class='tableCell'>"+allFaculties[i].FacultyName+"</td></tr>");
-//                }
-//            }
-//        }
+            if ($('#priceMsg').text() == '' && $('#depositMsg').text() == '' && $('#deliveryDateMsg').text() == '' && $('#yearsMsg').text() == '' && $('#arrangementMsg').text() == '' && $('#completionMsg').text() == '') {
+                getScheduleTable();
+                $("#scheduleDetailSection").fadeIn();
+            }
+        });
+
+        // Create table to display schedule detail
+        function getScheduleTable() {
+            // get values
+            var price = $('#Price').val(),
+                deposit = $('#Deposit').val(),
+                date = $('#DeliveryDate').val(),
+                years = 0,
+                arrangement = $('#Arrangement').val(),
+                completion = $('#Completion').val();
+            for (e of document.getElementsByName('Years')) { if (e.checked) { years = e.value; break; } }
+
+            // the payments are due on the first Monday of each month, beginning the month after delivery.
+            var tblSchedule = [],
+                mondays = getMondays(date, years * 12),
+                amounts = getAmounts(price, deposit, years * 12, arrangement, completion);
+                
+
+            $("#scheduleDetailTable").empty();
+            $("#scheduleDetailTable").append("<table id='tblschedule'  class='tableStyle'><tr><th class='tableHeader' align='center' style='width:160px;'>Date</th><th class='tableHeader' align='center'>Amount</th></tr></table>");
+
+            for (var i = 0; i < (years * 12); i++) {
+                $("#tblschedule").append("<tr><td class='tableCell'>" + mondays[i].toString().substring(4, 15)
+                    + "</td><td class='tableCell' align='center'>"+amounts[i]+"</td></tr>");
+            }
+        }
+
+        function onchangeevent(e) {
+            var eleId = e.id,
+                eleVal = e.value;
+
+            $("#scheduleDetailSection").fadeOut(0);
+            $('#priceMsg').text('');
+            $('#depositMsg').text('');
+            $('#deliveryDateMsg').text('');
+            $('#yearsMsg').text('');
+            $('#arrangementMsg').text('');
+            $('#completionMsg').text('');
+
+
+            switch (eleId) {
+                case 'Price':
+                    var price = $('#Price').val();
+                    $('#Deposit').val('');
+                    if (price <= 0)
+                        $('#priceMsg').text('Price amount must be greater 0');                   
+                    break;
+                case 'Deposit':
+                    var price = $('#Price').val(),
+                        deposit = $('#Deposit').val();
+                    if (price <= 0) {
+                        $('#priceMsg').text('Price amount must be greater 0');
+                    } else {
+                        if (parseInt(price * 0.15) > deposit)
+                            $('#depositMsg').text('Deposit amount should be minimum 15% of price');
+                    }
+                    break;
+                case 'Years':
+                    //alert('Years');
+                    break;
+                default:
+                    //alert('Default case');
+                    break;
+            }
+
+
+        }
+
+        function getMondays(myDate, myMonths) {
+            var d = new Date(myDate),
+                month = (d.getMonth() + 1 > 11 ? 1 : d.getMonth() + 1),
+                year = (d.getMonth() + 1 > 11 ? d.getFullYear() + 1 : d.getFullYear()),
+                mondays = [];
+
+            while (myMonths > 0) {
+                d.setFullYear(year, month, 1);
+
+                // Get the first Monday in the month
+                while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
+
+                mondays.push(new Date(d.getTime()));
+
+                myMonths -= 1;
+                month = (d.getMonth() + 1 > 11 ? 1 : d.getMonth() + 1);
+                year = (d.getMonth() + 1 > 11 ? d.getFullYear() + 1 : d.getFullYear())
+            }
+
+            return mondays;
+        }
+
+        function getAmounts(myPrice, myDeposit, myMonths, myArrangement, myCompletion) {
+            var amount = parseInt((myPrice - myDeposit) / myMonths),
+                amounts = [];
+
+            while (myMonths > 0) {
+                var quantity = 0;
+
+                if (amounts.length == 0) quantity = parseInt(amount) + parseInt(myArrangement);
+                else if (myMonths == 1) quantity = parseInt(amount) + parseInt(myCompletion);
+                else quantity = amount;
+
+                amounts.push(quantity);
+                myMonths -= 1;
+            }
+            return amounts;
+        }
 
     </script>
 </body>

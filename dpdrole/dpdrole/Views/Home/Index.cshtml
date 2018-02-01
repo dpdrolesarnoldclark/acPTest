@@ -3,152 +3,91 @@
     ViewBag.Title = "Loan Calculator";
 }
 
-<style>
-    #myModal .modal-dialog {
-        width: 70%;
-    }
-    /** Forces input to fill width of control column **/
-    .FillWide {
-        max-width: 800px;
-    }
-
-    .TextAlignLeft {
-        text-align: left;
-    }
-
-    p {
-        margin: 0 0 0px !important;
-    }
-
-    .modal-body {
-        margin-top: 5px;
-    }
-
-    .modal-header {
-        padding: 15px 15px 48px 15px;
-    }
-
-    #UnScheduledEvents .fc-event {
-        background-color: #fff !important;
-    }
-
-    #UnScheduledEvents .fc-event, .ui-widget .fc-event {
-        color: black !important;
-        font-size: medium !important;
-        border: inherit !important;
-    }
-
-    #UnScheduledEvents table {
-        width: 100% !important;
-    }
-
-    #external-events .fc-event {
-        background-color: #fff !important;
-    }
-
-    #external-events .fc-event, .ui-widget .fc-event {
-        color: black !important;
-        font-size: medium !important;
-        border-color: black !important;
-        padding: 11px 5px 8px 5px !important;
-        border-radius: 0px !important;
-    }
-
-
-
-    .table tr th {
-        max-width: 100px;
-        width: 123px !important;
-    }
-
-    .table tr td {
-        width: 123px !important;
-    }
-
-    .table thead tr {
-        display: flex;
-    }
-
-        .table thead tr th:nth-child(1) {
-            width: 38.5% !important;
-        }
-
-        .table thead tr th:nth-child(2) {
-        }
-
-        .table thead tr th:nth-child(3) {
-        }
-
-    .table tbody tr {
-        display: flex;
-    }
-
-        .table tbody tr td:nth-child(1) {
-            word-wrap: break-word;
-        }
-
-        .table tbody tr td:nth-child(2) {
-        }
-
-        .table tbody tr td:nth-child(3) {
-        }
-</style>
-
 <div class="jumbotron">
     <h1 stLoan Calculatoryle="font-family: Impact, fantasy"><I>Arnold Clark</I></h1>
     <p class="lead">Loan calculator and payment schedule generator.</p>
 </div>
 
-
-    <div class="row">
-        <h2>Loan Calculator</h2>
-        @using (Html.BeginForm("LoanCalculator", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            <fieldset>
-                <table>
-                    <tr>
-                        <td style="width:300px">@Html.LabelFor(m => m.Price)</td>
-                        <td>£@Html.TextBoxFor(m => m.Price)</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.LabelFor(m => m.Deposit)</td>
-                        <td>
-                            £@Html.TextBoxFor(m => m.Deposit)
-                            @Html.ValidationMessageFor(m => m.Deposit)
-                    </td>
-                    </tr>
-                    <tr>
-                        <td>@Html.LabelFor(m => m.DeliveryDate)</td>
-                        <td>&nbsp;@Html.TextBoxFor(m => m.DeliveryDate)</td>
-                    </tr>
-                    <tr>
-                        <td valign="top">@Html.LabelFor(m => m.Years)</td>
-                        <td align="left">
-                            <ol style="list-style-type:none">
-                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "1") @Html.Label("1")</li>
-                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "2") @Html.Label("2")</li>
-                                <li style="vertical-align:central">@Html.RadioButtonFor(m => m.Years, "3") @Html.Label("3")</li>
-                            </ol>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>@Html.LabelFor(m => m.Arrangement)</td>
-                        <td>£@Html.TextBoxFor(m => m.Arrangement, new { value = "88" })</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.LabelFor(m => m.Completion)</td>
-                        <td>£@Html.TextBoxFor(m => m.Completion, new { value = "20" })</td>
-                    </tr>
-
-                    <tr><td colspan="2" align="right"><input type="submit" class="btn btn-default" value="Calculate" /></td></tr>
-                </table>
-            </fieldset>
-        }
-    </div>
+<h2>Loan Calculator</h2>
+@using (Html.BeginForm("LoanCalculator", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Price)
+                </div>
+                <div class="col-md-10">
+                    £
+                    @Html.TextBoxFor(m => m.Price, new { @type = "number", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger", @id = "priceMsg" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Deposit)
+                </div>
+                    <div class="col-md-10">
+                        £
+                        @Html.TextBoxFor(m => m.Deposit, new { @type = "number", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.Deposit, "", new { @class = "text-danger", @id= "depositMsg" })
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.DeliveryDate)
+                </div>
+                <div class="col-md-10">
+                    &nbsp;&nbsp;
+                    @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "datefield", @type = "date", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.DeliveryDate, "", new { @class = "text-danger", @id = "deliveryDateMsg" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Years)
+                </div>
+                <div class="col-md-10">
+                    &nbsp;&nbsp;
+                    @Html.RadioButtonFor(m => m.Years, "1", new { @onclick = "onchangeevent(this);" }) @Html.Label("1") &nbsp;&nbsp;
+                    @Html.RadioButtonFor(m => m.Years, "2", new { @onclick = "onchangeevent(this);" }) @Html.Label("2") &nbsp;&nbsp;
+                    @Html.RadioButtonFor(m => m.Years, "3", new { @onclick = "onchangeevent(this);", @checked = true}) @Html.Label("3")
+                    @Html.ValidationMessageFor(m => m.Years, "", new { @class = "text-danger", @id = "yearsMsg" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Arrangement)
+                </div><div class="col-md-10">
+                    £
+                    @Html.TextBoxFor(m => m.Arrangement, new { Value = "88", @type = "number", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.Arrangement, "", new { @class = "text-danger", @id = "arrangementMsg" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Completion)
+                </div>
+                <div class="col-md-10">
+                    £
+                    @Html.TextBoxFor(m => m.Completion, new { Value = "20", @type = "number", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.Completion, "", new { @class = "text-danger", @id = "completionMsg" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<input type="submit" class="btn btn-default" value="Calculate" />*@
+                    <input type="button" class="btn btn-default" value="Calculate" id="btnCalculate" />                    
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
     
-    <div  class="row" id="scheduleDetailSection">
-        <h2>Payment Schedule </h2>
-        <div id="scheduleDetailTable"> </div>
-    </div>
+<div class="row" id="scheduleDetailSection">
+    <h2>Payment Schedule </h2>
+    <div id="scheduleDetailTable"></div>
+</div>
 
 
